@@ -117,7 +117,7 @@ author:
        #url: mailto:myles.akin@gmail.com
     - label: "LinkedIn"
       icon: "fas fa-fw fa-linkin-square"
-       url: "https://linkedin.com/in/mylesakin"
+       #url: "https://linkedin.com/in/mylesakin"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       # url: "https://twitter.com/"
@@ -126,7 +126,7 @@ author:
       # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-       url: "https://github.com/mylesakin"
+       #url: "https://github.com/mylesakin"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
