@@ -114,7 +114,7 @@ author:
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-       url: mailto:myles.akin@gmail.com
+       #url: mailto:myles.akin@gmail.com
     - label: "LinkedIn"
       icon: "fas fa-fw fa-linkin-square"
        url: "https://linkedin.com/in/mylesakin"
