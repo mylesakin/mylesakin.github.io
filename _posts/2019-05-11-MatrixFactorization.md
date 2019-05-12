@@ -1,9 +1,18 @@
 ---
 title: "Matrix Completion"
-date: 2018-05-11
+date: 2019-05-11
 tags: [Matrix Completion, Recommender System]
 excerpt: "Matrix Completion for Recommender Systems"
----
+mathjax: "true"
+
+$$
+\begin{bmatrix}
+1 & 2 & 4 & 5 & 4 & 1\\
+1 & 1 & 5 & 4 & 5 & 2\\
+5 & 4 & 2 & 2 & 1 & 5\\
+4 & 5 & 1 & 1 & 2 & 5
+\end{bmatrix}
+$$
 
 ```python
 import numpy as np

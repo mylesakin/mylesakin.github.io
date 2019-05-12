@@ -26,7 +26,6 @@
 
 {% include analytics.html %}
 {% include /comments-providers/scripts.html %}
-
 {% if site.after_footer_scripts %}
   {% for script in site.after_footer_scripts %}
     {% if script contains "://" %}
@@ -36,4 +35,10 @@
     {% endif %}
     <script src="{{ script_path }}"></script>
   {% endfor %}
+{% endif %}
+
+{% if page.mathjax %}
+<script type="text/javascript" async 
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 {% endif %}
