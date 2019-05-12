@@ -3,7 +3,7 @@ title: "Matrix Completion"
 date: 2019-05-11
 tags: [Matrix Completion, Recommender System]
 excerpt: "Matrix Completion for Recommender Systems"
-mathjax: "true"
+#mathjax: "true"
 ---
 
 $$\begin{bmatrix}
