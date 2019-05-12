@@ -3,6 +3,7 @@ title: "Matrix Completion"
 date: 2018-05-11
 tags: [Matrix Completion, Recommender System]
 excerpt: "Matrix Completion for Recommender Systems"
+---
 
 ```python
 import numpy as np
