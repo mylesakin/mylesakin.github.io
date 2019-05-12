@@ -6,12 +6,12 @@ excerpt: "Matrix Completion for Recommender Systems"
 mathjax: "true"
 ---
 
-$\begin{bmatrix}
+$$\begin{bmatrix}
 1 & 2 & 4 & 5 & 4 & 1\\
 1 & 1 & 5 & 4 & 5 & 2\\
 5 & 4 & 2 & 2 & 1 & 5\\
 4 & 5 & 1 & 1 & 2 & 5
-\end{bmatrix}$
+\end{bmatrix}$$
 
 
 
