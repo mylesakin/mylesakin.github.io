@@ -18,7 +18,7 @@ We start by constructing a ratings table where the rows are the users (consumers
 |         | Aliens | Predator | Pretty Woman | Sleepless in Seattle | Notting Hill | Terminator |
 |---------|--------|----------|--------------|----------------------|--------------|------------|
 | **Charles** | 1      | 2        | 4            | 5                    | 4            | 1          |
-| **Laura**   | 2      | 1        | 5            | 4                    | 5            | 2          |
+| **Laura**   | 1      | 1        | 5            | 4                    | 5            | 2          |
 | **Mark**    | 5      | 4        | 2            | 2                    | 1            | 5          |
 | **Simone**  | 4      | 5        | 1            | 1                    | 2            | 5          |
 
