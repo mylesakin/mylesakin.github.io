@@ -96,7 +96,7 @@ S_2 = \begin{bmatrix}
  14.73& 0 \\
  0 & 7.77
 \end{bmatrix}
-$$,
+$$
 
 $$
 V^T_2 = \begin{bmatrix}
