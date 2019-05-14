@@ -90,12 +90,14 @@ $$U_{2} = \begin{bmatrix}
 -0.51 & -0.50
 \end{bmatrix},
 $$
+
 $$
 S_2 = \begin{bmatrix}
  14.73& 0 \\
  0 & 7.77
 \end{bmatrix}
-$$
+$$,
+
 $$
 V^T_2 = \begin{bmatrix}
 -0.38 & -0.41 & -0.40 & -0.40 & -0.40 & -0.45\\
