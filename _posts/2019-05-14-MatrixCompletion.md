@@ -2,7 +2,7 @@
 title: "Matrix Completion"
 date: 2019-05-11
 tags: [Matrix Completion, Recommender System]
-excerpt: "Matrix Completion for Recommender Systems: A detailed look at matrix completion methods for recommendation systems. THis includes Singular Value Decompostion and Stochastic Gradient Descent factorization."
+excerpt: "Matrix Completion for Recommender Systems: A detailed look at matrix completion methods for recommendation systems. This includes Singular Value Decompostion and Stochastic Gradient Descent factorization."
 mathjax: "true"
 ---
 ## Matrix Approximation by Singular Value Decomposition
