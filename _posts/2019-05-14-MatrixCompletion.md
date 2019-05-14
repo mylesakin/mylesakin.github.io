@@ -35,7 +35,7 @@ The rank of a rectangular matrix can be found by the number of non-zero singular
 
 $$ M = USV^T $$
 
-Where, \\(U\\) and \\(V\\) are unitary matrices with sizes \\(m\times m\\) and \\(n\times n\\) respctively. The columns of these matrices are known as left and right singular vectors. The matrix \\(S\\) is a \\(m\times n\\) diagonal matrix with the singular values on the diagonal. For our example, we can factorize using the follwoing python code:
+Where, \\(U\\) and \\(V\\) are unitary matrices with sizes \\(m\times m\\) and \\(n\times n\\) respctively. The columns of these matrices are known as left and right singular vectors. The matrix \\(S\\) is a \\(m\times n\\) diagonal matrix with the singular values on the diagonal. For our example, we can factorize using the following python code:
 
 
 ```python
@@ -46,18 +46,23 @@ U,S,V = np.linalg.svd(M)
 ```
 
 This gives the following result (rounded to two decimal places)
+
 $$U = \begin{bmatrix}
 -0.47 & 0.49 & -0.47 & -0.56\\
 -0.49 & 0.54 & 0.47 & 0.49\\
 -0.53 & -0.48 & -0.53 & 0.48\\
 -0.51 & -0.50 & 0.52 & -0.47
 \end{bmatrix},
+$$
+$$
 S = \begin{bmatrix}
  14.73& 0 & 0 & 0 & 0 & 0\\
  0 & 7.77 & 0 & 0 & 0 & 0\\
  0 & 0 & 1.58 & 0 & 0 & 0\\
  0 & 0 & 0 & 1.49 & 0 & 0
 \end{bmatrix}
+$$
+$$
 V^T = \begin{bmatrix}
 -0.38 & -0.41 & -0.40 & -0.40 & -0.40 & -0.45\\
 -0.42 & -0.36 & 0.42 & 0.41 & 0.41 & -0.42\\
@@ -84,10 +89,14 @@ $$U_{2} = \begin{bmatrix}
 -0.53 & -0.48 \\
 -0.51 & -0.50
 \end{bmatrix},
+$$
+$$
 S_2 = \begin{bmatrix}
  14.73& 0 \\
  0 & 7.77
 \end{bmatrix}
+$$
+$$
 V^T_2 = \begin{bmatrix}
 -0.38 & -0.41 & -0.40 & -0.40 & -0.40 & -0.45\\
 -0.42 & -0.36 & 0.42 & 0.41 & 0.41 & -0.42
@@ -102,7 +111,9 @@ $$M_{2} = U_2S_2V_2^T= \begin{bmatrix}
 \end{bmatrix}$$
 
 As we can see, this is a fairly good approximation. Using mean square error given by
+
 $$ MSE = \frac{1}{mn}\sum_{i}\sum_{j}((M)_{ij}-(M_{2})_{ij}))^2 = \frac{1}{mn}\|M - M_{2}\|^2_F$$
+
 we get an error of 0.197. Note, \\( \| \|_F \\) is the Frobenius norm. Not bad. In fact, with respect to the Frobenius norm, this is the best approximation we can get with a rank 2 matrix. This follows from the Eckart-Young theorem:
 
 **Theorem**: (Eckart and Young) Let \\(A = USV^T\\) with \\(rank(r)\\). Then for some \\(k\\) such that \\(0< k \leq r\\) and \\(A_k = U_kS_kV_k^T\\) is the \\(k\\) truncated SVD,
@@ -204,7 +215,8 @@ $$X = \begin{bmatrix}
 4.86 & 3.98 & 1.97 & 1.99 & 1.01 & \color{red}{3.62}\\
 4.01 & 4.90 & \color{red}{2.24} & 1.00 & 1.99 & 4.89
 \end{bmatrix}
-,M = \begin{bmatrix}
+$$
+,$$M = \begin{bmatrix}
 1 & \color{red}{2} & 4 & 5 & \color{red}{4} & 1\\
 \color{red}{1} & 1 & 5 & \color{red}{4} & 5 & 2\\
 5 & 4 & 2 & 2 & 1 & \color{red}{5}\\
@@ -277,7 +289,8 @@ $$X = \begin{bmatrix}
 4.44 & 4.43 & 1.99 & 1.61 & 1.60 & \color{red}{4.88}\\
 4.51 & 4.55 & \color{red}{1.82} & 1.37 & 1.42 & 4.96
 \end{bmatrix}
-,M = \begin{bmatrix}
+$$
+,$$M = \begin{bmatrix}
 1 & \color{red}{2} & 4 & 5 & \color{red}{4} & 1\\
 \color{red}{1} & 1 & 5 & \color{red}{4} & 5 & 2\\
 5 & 4 & 2 & 2 & 1 & \color{red}{5}\\
@@ -291,7 +304,7 @@ $$W = \begin{bmatrix}
   0.29 & 2.55\\
   2.20 & 0.58\\
   2.27 & 0.48
-\end{bmatrix}
+\end{bmatrix},
 H = \begin{bmatrix}
  1.87 & 0.57\\
  1.97 & 0.16\\
