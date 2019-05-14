@@ -1,18 +1,3 @@
----
-title: "Matrix Completion"
-date: 2019-05-11
-tags: [Matrix Completion, Recommender System]
-excerpt: "Matrix Completion for Recommender Systems"
-mathjax: "true"
----
-
-$$\begin{bmatrix}
-1 & 2 & 4 & 5 & 4 & 1\\
-1 & 1 & 5 & 4 & 5 & 2\\
-5 & 4 & 2 & 2 & 1 & 5\\
-4 & 5 & 1 & 1 & 2 & 5
-\end{bmatrix}$$
-
 
 
 ```python
@@ -29,7 +14,7 @@ print(A)
      [5 4 2 1]
      [4 5 1 2]
      [1 2 5 5]]
-
+    
 
 
 ```python
@@ -43,7 +28,7 @@ print(A_norm)
      [ 2.  1. -1. -2.]
      [ 1.  2. -2. -1.]
      [-2. -1.  2.  2.]]
-
+    
 
 
 ```python
@@ -56,7 +41,7 @@ print(A_o)
      [0 1 5 0 5 2]
      [5 4 2 2 1 0]
      [4 5 0 1 2 5]]
-
+    
 
 
 ```python
@@ -72,7 +57,7 @@ print(q)
     [[0.24320148 0.45891692 0.80990547 0.44920768 0.68263868 0.82094832]
      [0.60291308 0.20622186 0.01389857 0.43044343 0.35589774 0.09460499]
      [0.93032012 0.65807887 0.44992909 0.92782132 0.76945596 0.66117582]]
-
+    
 
 
 ```python
@@ -91,7 +76,7 @@ for i in range(10000):
                 q[:,k] = q[:,k]+0.0002*(2*e*p[:,j]-0.02*q[:,k])
                 #print(q)
                 p[:,j] = p[:,j]+0.0002*(2*e*q[:,k]-0.02*p[:,j])
-
+            
 
 X = np.dot(p.T,q)
 print(X)#+np.mean(A_obs))
@@ -113,7 +98,7 @@ print(np.mean(np.multiply(X-A.T,X-A.T)))
      [5 4 2 2 1 5]
      [4 5 1 1 2 5]]
     0.4764523099119438
-
+    
 
 
 ```python
@@ -163,3 +148,4 @@ print(np.mean(np.multiply(X-A.T,X-A.T)))
      [5 4 2 2 1 5]
      [4 5 1 1 2 5]]
     0.3567015824625475
+    
