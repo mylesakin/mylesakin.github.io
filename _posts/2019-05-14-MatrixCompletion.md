@@ -11,9 +11,9 @@ Electronic retailers have inundated consumers with a huge number of products to 
 
 Matrix completion is a collaborative filtering technique for finding the best products to recommend. To start, *collaborative filtering* is a strategy of recommendation based on similarity of past consumption patterns by users. For example, suppose user A and user B have rated movies in a similar manner in the past. We might then expect for a movie A has seen but B has not, and A has rated highly, B would also enjoy this movie. By this method, we can find products for users based on similar users. Another strategy I will not discuss more here is content filtering. *Content filtering* observes the similarity of product features in order to recommend new products. For instance, sticking with the movie theme, if a user enjoyed the movie Aliens, we might recommend Predator as they are action packed, sci-fi movies. For more on content filtering see RSH.
 
-One of the most successful techniques for collaborative filtering has been matrix completion, also sometimes called matrix factorization (for further tehcniques, again see RSH). This methods generally relies on one of two types of data, explicit feedback of implicit feedback. Explicit feedback, such as the old NetFlix star rating system, provides information explicitly given about products by users/consumers. Implicit feedback is not directly provided by users or consumers, such as purchase history. For the purpose of this post, I will assume explicit feedback.
+One of the most successful techniques for collaborative filtering has been matrix completion, also sometimes called matrix factorization (for further techniques, again see RSH). This methods generally relies on one of two types of data, explicit feedback of implicit feedback. Explicit feedback, such as the old NetFlix star rating system, provides information explicitly given about products by users/consumers. Implicit feedback is not directly provided by users or consumers, such as purchase history. For the purpose of this post, I will assume explicit feedback.
 
-We start by constructing a ratings table where the rows are the users (consumers), the columns are the products and entries are the explicit ratings given by the user for a product. As matrix completion was made popular by the NetFlix competition, I will use mives as the product to recommend and a rating from 1 to five.
+We start by constructing a ratings table where the rows are the users (consumers), the columns are the products and entries are the explicit ratings given by the user for a product. As matrix completion was made popular by the NetFlix competition, I will use movies as the product to recommend and a rating from 1 to five.
 
 |         | Aliens | Predator | Pretty Woman | Sleepless in Seattle | Notting Hill | Terminator |
 |---------|--------|----------|--------------|----------------------|--------------|------------|
@@ -35,7 +35,7 @@ The rank of a rectangular matrix can be found by the number of non-zero singular
 
 $$ M = USV^T $$
 
-Where, \\(U\\) and \\(V\\) are unitary matrices with sizes \\(m\times m\\) and \\(n\times n\\) respctively. The columns of these matrices are known as left and right singular vectors. The matrix \\(S\\) is a \\(m\times n\\) diagonal matrix with the singular values on the diagonal. For our example, we can factorize using the following python code:
+Where, \\(U\\) and \\(V\\) are unitary matrices with sizes \\(m\times m\\) and \\(n\times n\\) respectively. The columns of these matrices are known as left and right singular vectors. The matrix \\(S\\) is a \\(m\times n\\) diagonal matrix with the singular values on the diagonal. For our example, we can factorize using the following python code:
 
 
 ```python
@@ -73,7 +73,7 @@ V^T = \begin{bmatrix}
 \end{bmatrix}
 $$
 
-We see that two of the singular values are much larger than the other two, indicating the importance of these dimensions in the reconstruction. We therfore might be interested in how close our an approximation of the matrix \\(M\\) would be if we used only those two singular values and their corresponding singular vectors. This is called truncated singular value decomposition. The following code gives an approximation with the first two singular values.
+We see that two of the singular values are much larger than the other two, indicating the importance of these dimensions in the reconstruction. We therefore might be interested in how close our an approximation of the matrix \\(M\\) would be if we used only those two singular values and their corresponding singular vectors. This is called truncated singular value decomposition. The following code gives an approximation with the first two singular values.
 
 
 ```python
@@ -162,7 +162,7 @@ $$ \text{ minimize } \|X\|_*\\
 \text{ subject to } P_\Omega(X) = P_\Omega(M)
 $$
 
-Where \\(\|X\|_* = \sum_i \sigma_i(X)\\) is the called the *nuclear norm* and \\(\sigma_i(X)\\) are the singular values of \\(X\\). Techinically this is a convex relaxtion to the non-convex rank minimization problem, for more on that see the references paapers. Minimizing the nuclear norm will send some of the less important singular values to zero. This requires advanced semidefinite programming optimization methods that have problems with larger matrices due to solving huge systems of linear equations. However, we can simplify this by approximately solving the nuclear norm minimization probelm using singular value thresholding.
+Where \\(\|X\|_* = \sum_i \sigma_i(X)\\) is the called the *nuclear norm* and \\(\sigma_i(X)\\) are the singular values of \\(X\\). Techinically this is a convex relaxtion to the non-convex rank minimization problem, for more on that see the references paapers. Minimizing the nuclear norm will send some of the less important singular values to zero. This requires advanced semidefinite programming optimization methods that have problems with larger matrices due to solving huge systems of linear equations. However, we can simplify this by approximately solving the nuclear norm minimization problem using singular value thresholding.
 
 Let's restate our optimization problem as follows using the Frobenius norm to ensure the equivalence of the observes set \\(\Omega\\) in \\(X\\) and \\(M\\)
 
@@ -209,7 +209,7 @@ X = svd_comp(M_obs,0.003,10000)
 
 ```
 
-The resulting optimized matrix and the orginal complete matrix are
+The resulting optimized matrix and the original complete matrix are
 
 $$X = \begin{bmatrix}
 1.02 & \color{red}{0.44} & 3.97 & 4.86 & \color{red}{3.19} & 0.99\\
@@ -225,7 +225,7 @@ $$
 4 & 5 & 1 & \color{red}{1} & 2 & 5
 \end{bmatrix}$$
 
-the missing entries, \\(\Omega^c\\) are colored red. As we can see, the algorithm does a decent job of completing the matrix. Overall, the MSE \\(X\\) is 0.2817; not too bad. Fine tuning the hyperparameters \\(\delta\\) and \\(\tau\\) through cross calidation, as well as letting both be functions of \\(k\\) should result in a better approximation.
+the missing entries, \\(\Omega^c\\) are colored red. As we can see, the algorithm does a decent job of completing the matrix. Overall, the MSE \\(X\\) is 0.2817; not too bad. Fine tuning the hyperparameters \\(\delta\\) and \\(\tau\\) through cross validation, as well as letting both be functions of \\(k\\) should result in a better approximation.
 
 Now based, on these results we can build a decision rule to recommend new movies, say if the filled in value is greater than 3. In this case, we would want to recommend Notting Hill to Charles, but not Predator. Thus this simple algorithm allows us to personalize recommendations for each user.
 
@@ -238,7 +238,7 @@ Since we want to move away from calculating SVDs, we may need to reformulate the
 Using this new factorization, we can restate our optimization problem as
 
 $$
-\text{ minimize } \frac{1}{2}\|M-WH^T\|_F^2 - \lambda(\|W\|_F^2 +\|H\|_F^2)
+\text{ minimize } \frac{1}{2}\|P_\Omega(M-WH^T)\|_F^2 - \lambda(\|W\|_F^2 +\|H\|_F^2)
 $$
 
 Here we use \\(L^2\\) regularization constraints on the matrices \\(W\\) and \\(H\\) to prevent overfitting. You may be asking some questions now; Where does this factorization come from? Why do we use this factorization when we know truncated SVD is the best solution?
@@ -258,7 +258,7 @@ As to the second question, while this is a non-convex optimization problem, we c
     * \\(W_i \leftarrow W_i + \alpha(e_{ij}H_i-\lambda W_j)\\)
     * \\(H_i \leftarrow H_j + \alpha(e_{ij}W_j-\lambda H_i)\\)
 
-The follwoing python script implements simple SGD for our movie ratings matrix. I use rank \\(r=2\\) for this example.
+The following python script implements simple SGD for our movie ratings matrix. I use rank \\(r=2\\) for this example.
 
 
 ```python
@@ -320,7 +320,7 @@ Observing these matrices, due to the simplicity of our original matrix, we can f
 
 As mentioned, this method is non-convex. However, by alternately fixing one of the matrices \\(W\\) or \\(H\\), and performing optimization on the other, the problem becomes convex. This is the Alternating Minimization algorithm for SGD. It is a simple code modification of the above to achieve this, but not included here. There are also extensions of SGD to include bias and temporal dynamics. For more on these extensions, see *Matrix Factorization Techniques for Recommender Systems* by Koren, Bell and Volinsky.
 
-Our last task now is to relate the matrices \\(W\\) and \\(H\\) back to SVD. As I mentioned, the optimal solution to the optimization problem is given by \\(\hat{W} = U_rS_r^{1/2}\\) and \\(\hat{H} = V_rS_r^{1/2}\\) (hats added to distinguish from the SGD matrices). When we calculate these from the orginal, filled matrix we get
+Our last task now is to relate the matrices \\(W\\) and \\(H\\) back to SVD. As I mentioned, the optimal solution to the optimization problem is given by \\(\hat{W} = U_rS_r^{1/2}\\) and \\(\hat{H} = V_rS_r^{1/2}\\) (hats added to distinguish from the SGD matrices). When we calculate these from the original, filled matrix we get
 
 $$\hat{W} = U_2S_2^{1/2}=\begin{bmatrix}
 -1.79 & 1.38\\
@@ -337,11 +337,11 @@ $$\hat{W} = U_2S_2^{1/2}=\begin{bmatrix}
 -1.73 & -1.16
 \end{bmatrix}$$
 
-These don't look anything like the \\(W\\) and \\(H\\) we found from the SGD, what's the deal? This goes back to the fact that the product \\(WH^T\\) is unaffect by right multiplication of \\(\hat{W}\\) and \\(\hat{H}\\) by a \\(r\times r\\) matrix. We can find this matric, call it \\(R\\), by the following
+These don't look anything like the \\(W\\) and \\(H\\) we found from the SGD, what's the deal? This goes back to the fact that the product \\(WH^T\\) is unaffected by right multiplication of \\(\hat{W}\\) and \\(\hat{H}\\) by a \\(r\times r\\) matrix. We can find this matric, call it \\(R\\), by the following
 
 $$ W = \hat{W}R \Rightarrow R = \hat{W}^{+}W$$   
 
-Note that since these are not square matrices, we have to use the psuedoinverse \\(^+\\)of \\(\hat{W}\\). Solving this, we get
+Note that since these are not square matrices, we have to use the pseudoinverse \\(^+\\)of \\(\hat{W}\\). Solving this, we get
 
 $$R=\begin{bmatrix}
  -0.63 & -0.72\\
@@ -356,6 +356,6 @@ $$R=\begin{bmatrix}
 \end{bmatrix}
 $$
 
-While not perfect, we see that \\(\hat{W}R\\) is very close to the \\(W\\) found by SGD! You can verify for yourself that \\(\hat{H}R\\) is very close to \\(H\\). Most likely the difference is due to algorithmic or rounding errors. You can also verify that \\(R\\) is orthogonal, that is \\(RR=I\\) where \\(I\\) is the identity matrix the same size as \\(R\\). What this whould also tell you is that performing SVD on the matrix \\(WH^T\\) will give you an approximation to \\(U_rS_rV_r^T\\)! Hence, why the SGD method is actually called the SVD method in a lot of literature.
+While not perfect, we see that \\(\hat{W}R\\) is very close to the \\(W\\) found by SGD! You can verify for yourself that \\(\hat{H}R\\) is very close to \\(H\\). Most likely the difference is due to algorithmic approximation or rounding errors. You can also verify that \\(R\\) is orthogonal, that is \\(RR=I\\) where \\(I\\) is the identity matrix the same size as \\(R\\). What this should also tell you is that performing SVD on the matrix \\(WH^T\\) will give you an approximation to \\(U_rS_rV_r^T\\)! Hence, why the SGD method is actually called the SVD method in a lot of literature.
 
-And there you have it, some matrix completion techiniques, where they come from and how they are related. I have seen some posts that claim SVD and the \\(WH^T\\) factorizations are completely separate and unrelated. As you can see here, that's simply not true and they are based on the same idea of low rank approximation, for which truncated SVD is the best solution. The \\(WH^T\\) factorization is just a different way of obtaining the truncated SVD, without actually performing truncated SVD. Hope you enjoyed!
+And there you have it, some matrix completion techniques, where they come from and how they are related. I have seen some posts that claim SVD and the \\(WH^T\\) factorizations are completely separate and unrelated. As you can see here, that's simply not true and they are based on the same idea of low rank approximation, for which truncated SVD is the best solution. The \\(WH^T\\) factorization is just a different way of obtaining the truncated SVD, without actually performing truncated SVD. Hope you enjoyed!
