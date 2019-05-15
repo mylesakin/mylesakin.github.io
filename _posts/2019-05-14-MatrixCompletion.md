@@ -150,7 +150,7 @@ There are a many algorithms for matrix completion based on singular value decomp
 The Singular Value Thresholding (SVT) I will discuss here was introduced in *A Singular Value Thresholding Algorithm for Matrix Completion* by Cai, Candes and Shen. Suppose we are given a matrix \\(M\\) consisting a set of observations \\(\Omega = (i,j)\\), that is \\(M_{ij}\\) is observed when \\((i,j)\in \Omega\\). We define the orthogonal projector \\(P_\Omega\\) on a matrix \\(X\\) to be
 
 $$
-P_\Omega(A) = \begin{cases}
+P_\Omega(X) = \begin{cases}
  A_{ij}& \text{ if } (i,j)\in \Omega \\
  0 & \text{ otherwise }  
 \end{cases}
@@ -171,7 +171,7 @@ $$ \min_{X\in \mathbb{R}^{m\times n}} \frac{1}{2}\|P_\Omega(M-X)\|_F^2-\tau\|X\|
 Let's also define the soft-thresholding operator as
 
 $$
-D_\tau(A) = UT_\tau(S)V^T \\
+D_\tau(X) = UT_\tau(S)V^T \\
 T_\tau(S)_{ii} = \begin{cases}
  S_{ij} - \tau& \text{ if } S_{ij} > \tau \\
  0 & \text{ otherwise }  
