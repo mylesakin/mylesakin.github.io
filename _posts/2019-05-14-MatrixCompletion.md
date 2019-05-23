@@ -151,7 +151,7 @@ The Singular Value Thresholding (SVT) I will discuss here was introduced in *A S
 
 $$
 P_\Omega(X) = \begin{cases}
- A_{ij}& \text{ if } (i,j)\in \Omega \\
+ X_{ij}& \text{ if } (i,j)\in \Omega \\
  0 & \text{ otherwise }  
 \end{cases}
 $$
