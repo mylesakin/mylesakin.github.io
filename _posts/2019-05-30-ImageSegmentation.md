@@ -20,7 +20,6 @@ Now were, as humans, can clearly identify the pitty in this picture. However, su
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image as image
-from skimage.color import rgb2lab, rgb2grey, lab2rgb
 ```
 
 
