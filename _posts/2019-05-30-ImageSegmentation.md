@@ -1,4 +1,10 @@
-
+---
+title: "Image Segmentation by Clustering"
+date: 2019-05-30
+tags: [Image Segmentation, Clustering, Machine Vision]
+excerpt: "Image segmentation using simple clustering techniques; k-means and Gaussian mixture models."
+mathjax: "true"
+---
 ## Image Segmentation via Clustering Methods
 
 Image segmentation is an important part of image analysis. The purpose of segmentation is to simplify the image to something (potentially) easier to understand. For instance, you may want to use segmentation to label objects in an image (semantic segmentation) or to distinguish the forground from the background. You may just want to identify portions of an image where the color or texture are fairly homogenous. Image segmentation has many practical applications such as tissue identification or tumor location in medical imaging, pedestrian identification in object detection or facial recognition tasks. For this post, and following posts, I am going to be discussing various methods for image segmentation. I will start with some of the simplest, clustering based methods. In a post to follow this one, I will use a probabilistic graphical model, a markov random field, to produce an image segmentation. After that, I will begin discussion on convolutional neural networks and their use in object detection and semantic segmentation (with masking). That will most likely take a few posts in and of itself. But for now, on to clustering!
@@ -21,7 +27,7 @@ from skimage.color import rgb2lab, rgb2grey, lab2rgb
 ```python
 img = image.open('pitbull.jpg')
 img.load()
-img_array = np.asarray(img, dtype="int32") 
+img_array = np.asarray(img, dtype="int32")
 plt.imshow(img)
 plt.axis('off')
 plt.show()
@@ -41,7 +47,7 @@ print(img_array[0,0,:])
 
     (411, 760, 3)
     [122 145 103]
-    
+
 
 We can see that the pixel has (R,G,B) = (120,144,92) which is a darkish green. So that pixel is in the grass. What may be interesting is to visualize the pixels in RGB space. We do this with scatter plots, two dimensiona at a time. This will require reshaping the array into a \\(69 \times 128 = 8829\\) by \\(3\\) array. We will also sample 400 rows randomly to reduce the number of points to plot.
 
@@ -68,7 +74,7 @@ plt.show()
 ![png](output_8_0.png)
 
 
-From this these scatter plots, we can observe that the pixels appear to cluster into two groups, which may be related to the purple-ish color of the pitbull and the green grass of the background. Clustering methods then may be a good place to start our segmentation attempts. A popular clustering method is called K-means clustering. 
+From this these scatter plots, we can observe that the pixels appear to cluster into two groups, which may be related to the purple-ish color of the pitbull and the green grass of the background. Clustering methods then may be a good place to start our segmentation attempts. A popular clustering method is called K-means clustering.
 
 ## K-Means Clustering
 
@@ -80,9 +86,9 @@ K-means clustering partitions data into \\(k\\) where each of the data points be
 $$\min_k \| x_i - \mu_k^{t} \|^2$$
 4. Find the new cluster centers using
 $$\mu_k^{t+1} = \frac{1}{|k|} \sum_{j\in k}x_j$$
-5. Repeat steps 3 and 4 until no data point changes cluster or a given number of iterations is reached. 
+5. Repeat steps 3 and 4 until no data point changes cluster or a given number of iterations is reached.
 
-Let's use the sci-kit learn implementation of k-means clustering to put each pixel into a cluster of similar pixels. It's hoped that doing this will result in two clusters, one for background and one for the pitbull. To visualize each cluster, we will assign each pixel in the cluster the value of the cluster center. Note that sci-kit learn uses Euclidean distance as the distance metric. 
+Let's use the sci-kit learn implementation of k-means clustering to put each pixel into a cluster of similar pixels. It's hoped that doing this will result in two clusters, one for background and one for the pitbull. To visualize each cluster, we will assign each pixel in the cluster the value of the cluster center. Note that sci-kit learn uses Euclidean distance as the distance metric.
 
 
 ```python
@@ -236,7 +242,7 @@ for k in K:
     kmeanModel = KMeans(n_clusters=k).fit(img_train)
     kmeanModel.fit(img_train)
     d.append(sum(np.min(cdist(img_train, kmeanModel.cluster_centers_, 'euclidean'), axis=1)) / img_train.shape[0])
-    
+
 plt.plot(K,d)
 plt.ylabel("\u03B7")
 plt.xlabel("k")
@@ -269,7 +275,7 @@ Unfortunately, when we take the derivative and set it equalt to zero (as we alwa
 $$ \gamma_k(x) = p(k|x) = \frac{p(k)p(x|k)}{p(x)}\\
 =\frac{\pi_k \mathcal{N}(x|\mu_k, \Sigma_k)}{\sum_{k=1}^K \pi_k \mathcal{N}(x|\mu_k, \Sigma_k)}$$
 
-where \\(\pi_k = \frac{N_k}{N}\\). We interpret \\(N_k\\) as the effective number of points assigned to cluster \\(k\\). The EM algorithm is as follow 
+where \\(\pi_k = \frac{N_k}{N}\\). We interpret \\(N_k\\) as the effective number of points assigned to cluster \\(k\\). The EM algorithm is as follow
 
 1. Initialize the means \\(\mu_k\\), covariances \\(\Sigma_k\\) and mixing coefficients \\(\pi_k\\) and evaluate the initial values of the log likelihood.
 2. E-step: Evaluate \\(\gamma_k\\) for the current parameter values.
@@ -343,7 +349,7 @@ The type of data this picture presents is given in the 4th row and as can be see
 
 ## Medical Image Example
 
-Just as an example of a real world use of clustering, let's look at an MRI image of a brain tumor. 
+Just as an example of a real world use of clustering, let's look at an MRI image of a brain tumor.
 
 
 ```python
