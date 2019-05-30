@@ -34,7 +34,7 @@ plt.show()
 ```
 
 
-![png](output_4_0.png)
+![png]({{ site.url }}{{ site.baseurl }} /images/output_4_0.png)
 
 
 Now, taking a look at the shape of the array create from the image, we can see that it is (69,128,3), that is it ia a 69x128 image an each entry has a three dimensional data. If we look atone pixel, we can see the (R,G,B) values:
@@ -306,7 +306,7 @@ plt.show()
 ```
 
 
-![png](output_25_0.png)
+![png]({{ site.url }}{{ site.baseurl }} /images/output_25_0.png)
 
 
 Wow! That is an alomost perfect segmentation of the image into the pitbull and grass. Why did this work so well? Let's take a look at the scatter plots.
