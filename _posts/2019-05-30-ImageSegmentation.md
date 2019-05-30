@@ -11,7 +11,7 @@ Image segmentation is an important part of image analysis. The purpose of segmen
 
 In image segmentation, we are looking for ways to segment an image in to distinct parts. For many purposes, we may want to segment based on homogeneous regions of color. For instance, consider the following picture of a dog (a pitbull to be specific).
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/pitbull.jpg" alt="Pitbull" width="250"/>
+<img src="https://mylesakin.github.io/images/pitbull.jpg" alt="Pitbull" width="250"/>
 
 Now were, as humans, can clearly identify the pitty in this picture. However, suppose we want a machine to identify the pitbull in this picture. We notice that perhaps a way we can do this is by identifying pixels that belong to the pitbull, and those that belong to the background. We may try to do this using pixel color differences in the RGB representation of colors; Red, Green Blue each varying from 0-255. Each pixel in RGB representation is given by an ordered triplet (R,G,B). Let's import the image using python and convert to a numpy array:
 
