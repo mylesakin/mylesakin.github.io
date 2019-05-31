@@ -273,7 +273,7 @@ $$
 
 Unfortunately, when we take the derivative and set it equal to zero (as we always do to maximize a function), it does not have a closed form solution. The most common algorithm for finding the optimal parameters, based on the desired number of components, is the expectation maximization (EM) algorithm. This algorithm makes use of Bayes rule for the probability
 
-$$p(k|x)$$ 
+$$p(k|x)$$
 
 From Bayes rule we obtain
 
@@ -427,4 +427,4 @@ plt.show()
 ![png]({{ site.url }}{{ site.baseurl }}/images/output_35_0.png)
 
 
-Thanks for reading, for any questions or comments please contact me via the e-mail on the home page. Enjoy!
+Thanks for reading, for any questions or comments please contact me via the e-mail. Enjoy!
