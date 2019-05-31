@@ -427,4 +427,4 @@ plt.show()
 ![png]({{ site.url }}{{ site.baseurl }}/images/output_35_0.png)
 
 
-Thanks for reading, for any questions or comments please contact me via the e-mail. Enjoy!
+Thanks for reading, for any questions or comments please contact me via e-mail. Enjoy!
