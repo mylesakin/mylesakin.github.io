@@ -265,7 +265,7 @@ $$
 
 where \\(\mu_k\\) and \\(\Sigma_k\\) are the mean and covariance matrix of the \\(k\\)th component of the mixture. The parameters \\(\pi_k\\) are the mixing coefficients and with the properties that \\(\sum_{k=1}^k \pi_k=1\\) and \\(\pi_k\in[0,1]\\). These properties ensure the whole model normalizes to one. With this model, we are assuming that our pixels are mixtures of normally distributed subpopulations, those being the population of pixels belonging to the grass and those belonging to the pitbull. Therefore, we hope two find two components, \\(K=2\\), corresponding to the populations (just as we hoped with K-means). For more information on the probabilistic and latent variable interpretation of Gaussian mixture models, see *Pattern Recognition and Machine Learning* by Christopher Bishop.
 
-Given the data set, how can we use this model to determine if the data produces two components corresponding to grass and pitbull. In general, to determine the values of then parameters \\(\{\pi_k, \mu_k, \Sigma_k\}\\) for some \\(k\\), we want to maximize the *log likelihood* function. This function is given by the *log* of \\(p(x)\\) given the data \\(x_n\\) (\\(n \in \{1,2,...,N\}\\) data points:
+Given the data set, how can we use this model to determine if the data produces two components corresponding to grass and pitbull. In general, to determine the values of then parameters \\(\{\pi_k, \mu_k, \Sigma_k\}\\) for some \\(k\\), we want to maximize the *log likelihood* function. This function is given by the *log* of \\(p(x)\\) given the data \\(x_n\\) (\\(n \in \{1,2,...,N\})\\) data points:
 
 $$ \log{\prod_n p(x)} = \sum_n \log{p(x_n)} = \sum_n \log{\left (\sum_{k=1}^K \pi_k \mathcal{N}(x|\mu_k, \Sigma_k)\right )}
 $$
