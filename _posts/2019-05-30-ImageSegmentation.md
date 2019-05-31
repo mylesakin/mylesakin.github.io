@@ -11,7 +11,7 @@ Image segmentation is an important part of image analysis. The purpose of segmen
 
 In image segmentation, we are looking for ways to segment an image in to distinct parts. For many purposes, we may want to segment based on homogeneous regions of color. For instance, consider the following picture of a dog (a pitbull to be specific).
 
-<img src="https://github.com/mylesakin/mylesakin.github.io/tree/master/images/pitbull.jpg" alt="Pitbull" width="250"/>
+<img src="{{ site.url }}{{ site.baseurl }}/images/pitbull.jpg" alt="Pitbull" width="250"/>
 
 Now we, with our complex visual system, can clearly identify the pitty in this picture. However, suppose we want a machine to identify the pitbull in this picture. We notice that perhaps a way we can do this is by identifying pixels that belong to the pitbull, and those that belong to the background. We may try to do this using pixel color differences in the RGB representation of colors; Red, Green Blue each varying from 0-255. Each pixel in RGB representation is given by an ordered triplet (R,G,B). Let's import the image using python and convert to a numpy array:
 
@@ -70,7 +70,7 @@ plt.show()
 ```
 
 
-![png](output_8_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_8_0.png)
 
 
 From this these scatter plots, we can observe that the pixels appear to cluster into two groups, which may be related to the purple-ish color of the pitbull and the green grass of the background. Clustering methods then may be a good place to start our segmentation attempts. A popular clustering method is called K-means clustering.
@@ -109,7 +109,7 @@ plt.show()
 ```
 
 
-![png](output_12_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_12_0.png)
 
 
 Not quite what we were hoping for. We can see that the clustering seemed to have put the darker portions of the image in a cluster and the lighter portions in another, not the color of the pitbull vs the color of the grass. LEt's take a look at the scatter plots again to see which points were clustered together.
@@ -141,7 +141,7 @@ plt.show()
 ```
 
 
-![png](output_14_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_14_0.png)
 
 
 From this, we see that indeed, the clustering has placed the darker portions (low RGB values) in one cluster and lighter portions (higher RGB values) in another. Maybe we can remedy some of this by increasing the number of clusters. Let's use three clusters and observe the results.
@@ -164,7 +164,7 @@ plt.show()
 ```
 
 
-![png](output_16_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_16_0.png)
 
 
 That looks much better! We could use two of our clusters to identify the majority of the pitbull, though there is still noise in the darker portions of the grass. Let's take a look at the scatter plots again.
@@ -201,7 +201,7 @@ plt.show()
 ```
 
 
-![png](output_18_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_18_0.png)
 
 
 We see now that there is a cluster with medium RGB values that tend belong to one of the clusters we are trying to isolate. The problem that we are seeing is due to the k-means clusters are based on the radial distance a data point is from a cluster center. This type of clustering has trouble with long, narrow data clusters. K-means, thus, cannot produce optimal clustering for identifying the pitbull and grass in only two clusters. We see that increasing clusters does help to identify the pitbull from the grass, is there a way to identify the optimal \\(k\\)?
@@ -226,7 +226,7 @@ plt.show()
 ```
 
 
-![png](output_20_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_20_0.png)
 
 
 That gives more detail, but doesn't help with identifying parts of the scene. So it appears that we could stop at three clusters  to have a solid segmentation of the image. We could also use what is known as the elbow method to find the best number of clusters. This method looks at a plot of the normalized sum of distances, \\(\eta\\) from each data point to the cluster it is assigned to for each value of \\(k\\). The "elbow" of the plot is the value \\(k\\) after which \\(\eta\\) doesn't change much with with an increase of \\(k\\). The following code provides this analysis.
@@ -249,7 +249,7 @@ plt.show()
 ```
 
 
-![png](output_22_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_22_0.png)
 
 
 Unfortunately this plot does not have a super elbow and that we could probably choose \\(k\in \{3,4,5\}\\) and have decent segmentation. So we can choose \\(k=4\\) as the best value of \\(k\\) which we see does a fairly good job after some inspection of the resulting clustered image. But again, we wish to only have two clusters and we know due to it's spherical clusters, k-means cannot offer this solution, so is there another method that can? The answer is yes! Using Gaussian mixture models, we can find two clusters that encompass the long, narrow clusters of our data.
@@ -305,7 +305,7 @@ plt.show()
 ```
 
 
-![png]({{ site.url }}{{ site.baseurl }} /images/output_25_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_25_0.png)
 
 
 Wow! That is an alomost perfect segmentation of the image into the pitbull and grass. Why did this work so well? Let's take a look at the scatter plots.
@@ -337,7 +337,7 @@ plt.show()
 ```
 
 
-![png](output_27_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_27_0.png)
 
 
 What we see here is that the Gaussian mixture model was able to produce components corresponding to the two long, narrow clusters we wanted. This is due to the covariance allowing for non-spherical, elliptical structures. This is a big strength of the Gaussian mixture model. There are other clustering methods that can handle data cluster with shapes like this. The following figure gives some clustering algorithms and how well they cluster certain shapes of data clusters (taken from the article https://towardsdatascience.com/the-5-clustering-algorithms-data-scientists-need-to-know-a36d136ef68)
@@ -362,7 +362,7 @@ plt.show()
 ```
 
 
-![png](output_31_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_31_0.png)
 
 
 When I worked as a medical physicist in radiation oncology, one task during the treatment planning stage was to "contour" the bulk tumor as well as organs at risk. This involved filling in the CT image with a given color and labeling all of that color as being "tumor" or some organ at risk. This was to allow for dose calculations. The software we used had an option to automatically contour the tumor and organs at risk, and this process was calleds something like smart segmentation (if I remember correctly). And that's what the software did, segment out the different organs/tumors of interest! Now, these were much more sophisticated algorithms than I have discussed here, but let's see the results if we use K-means. Note that CT images are in grayscale, not RGB, but grayscale can be represented in RGB, which this image is.
@@ -390,7 +390,7 @@ plt.show()
 ```
 
 
-![png](output_33_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_33_0.png)
 
 
 My color choices may not be the best, but you get the point. We can see the tumor segmented in green. There is some green with the skull as well which would require clean up, but not too bad for such a simple algorithm! There are ways to restrict cluster to be local using graph based segmentation or restring segmentation to specific regions through some preprocessing methods. I will have further posts on this type of work. Just for completnes, here is the tumor image segmented using a Gaussian mixture model. The results are very similar to K-means due to the fact that the images are really grayscale.
@@ -418,7 +418,7 @@ plt.show()
 ```
 
 
-![png](output_35_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/output_35_0.png)
 
 
 Thanks for reading, for any questions or comments please contact me via the e-mail on the home page. Enjoy!
