@@ -267,7 +267,8 @@ where \\(\mu_k\\) and \\(\Sigma_k\\) are the mean and covariance matrix of the \
 
 Given the data set, how can we use this model to determine if the data produces two components corresponding to grass and pitbull. In general, to determine the values of then parameters \\(\{\pi_k, \mu_k, \Sigma_k\}\\) for some \\(k\\), we want to maximize the *log likelihood* function. This function is given by the *log* of \\(p(x)\\) given the data \\(x_n\\) (\\(n \in \{1,2,...,N\}\\) data points:
 
-$$ \log{\prod_n p(x)} = \sum_n \log{p(x_n)} = \sum_n \log{\left (\sum_{k=1}^K \pi_k \mathcal{N}(x|\mu_k, \Sigma_k)\right )}$$
+$$ \log{\prod_n p(x)} = \sum_n \log{p(x_n)} = \sum_n \log{\left (\sum_{k=1}^K \pi_k \mathcal{N}(x|\mu_k, \Sigma_k)\right )}
+$$
 
 Unfortunately, when we take the derivative and set it equal to zero (as we always do to maximize a function), it does not have a closed form solution. The most common algorithm for finding the optimal parameters, based on the desired number of components, is the expectation maximization (EM) algorithm. This algorithm makes use of Bayes rule for the probability \\(p(k|x)\\). From Bayes rule we obtain
 
