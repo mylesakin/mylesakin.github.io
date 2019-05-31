@@ -5,7 +5,7 @@ tags: [Image Segmentation, Clustering, Machine Vision]
 excerpt: "Image segmentation using simple clustering techniques; k-means and Gaussian mixture models."
 mathjax: "true"
 ---
-## Image Segmentation 
+## Image Segmentation
 
 Image segmentation is an important part of image analysis. The purpose of segmentation is to simplify the image to something (potentially) easier to understand. For instance, you may want to use segmentation to label objects in an image (semantic segmentation) or to distinguish the foreground from the background. You may just want to identify portions of an image where the color or texture are fairly homogenous. Image segmentation has many practical applications such as tissue identification or tumor location in medical imaging, pedestrian identification in object detection or facial recognition tasks. For this post, and following posts, I am going to be discussing various methods for image segmentation. I will start with some of the simplest, clustering based methods. In a post to follow this one, I will use a probabilistic graphical model, a Markov random field, to produce an image segmentation. After that, I will begin discussion on convolutional neural networks and their use in object detection and semantic segmentation (with masking). That will most likely take a few posts in and of itself. But for now, on to clustering!
 
@@ -342,7 +342,7 @@ plt.show()
 
 What we see here is that the Gaussian mixture model was able to produce components corresponding to the two long, narrow clusters we wanted. This is due to the covariance allowing for non-spherical, elliptical structures. This is a big strength of the Gaussian mixture model. There are other clustering methods that can handle data cluster with shapes like this. The following figure gives some clustering algorithms and how well they cluster certain shapes of data clusters (taken from the article https://towardsdatascience.com/the-5-clustering-algorithms-data-scientists-need-to-know-a36d136ef68)
 
-<img src="clustering.png" alt="drawing"/>
+<img src="{{ site.url }}{{ site.baseurl }}/images/clustering.png" />
 
 The type of data this picture presents is given in the 4th row and as can be seen here, Gaussian mixture models (last column) work best for this kind of data. K-means (first column) as we have seen struggles with this type of cluster shape. Each clustering algorithm has it's strength and weakness and it is always a good idea to visualize the data first to see which algorithm might work best.
 
