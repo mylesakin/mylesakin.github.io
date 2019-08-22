@@ -2,10 +2,9 @@
 title: "Fundamentals - Decision Trees"
 date: 2019-08-22
 tags: [Decision Trees, Classification, Regression]
-excerpt: "An indepth discussion of decision trees for classification and regression"
+excerpt: "An discussion of the decision tree model for classification and regression"
 mathjax: "true"
 ---
-# Fundamentals - Decision Trees
 
 This post is the start of a series of posts I will make about some fundamental data science methods. I am making these to keep my knowledge of machine learning fundamentals strong and hopefully provide a nice/clear explanation of these methods. To start, I am going to talk about a type of model that is very powerful, but also has some significant weaknesses, the *decision tree*. I will follow this post with another post on ensemble methods and the ensembling of decision trees into random forests, which is a very powerful and popular machine learning model.
 
@@ -110,7 +109,7 @@ $$ S = -\sum_i p_i\log{p_i} $$
 
 Where \\(p_i\\) is the probability of the \\(i\\)th class in the partition.
 
-We do not know the actual probability of each class but we can approximate it using \\(p_i=\frac{|\Omega_i|}{|\Omega|}\\), where \\(\Omega\\) is the partition/ under consideration, \\(\Omega_i\\) is the set of point corresponding to class \\(i\\) and \\(||\\) is the cardinaility function. For the binary case, this is simply cross entropy. We can verify that this impurity measure is minimal when the partition is pure and maximal when each class has equal probability by plottin cross-entropy. Not that for two classes \\(p_1=1-p_2\\) and vice versa.
+We do not know the actual probability of each class but we can approximate it using \\(p_i=\frac{|\Omega_i|}{|\Omega|}\\), where \\(\Omega\\) is the partition under consideration, \\(\Omega_i\\) is the set of point corresponding to class \\(i\\) and \\(||\\) is the cardinality function. For the binary case, this is simply cross entropy. We can verify that this impurity measure is minimal when the partition is pure and maximal when each class has equal probability by plotting cross-entropy. Not that for two classes \\(p_1=1-p_2\\) and vice versa.
 
 
 
@@ -136,7 +135,7 @@ However, entropy is not the only impurity measure. Another popular one is the Gi
 
 $$ G= 1-\sum_i (p_i)^2 $$
 
-Where again, \\(p_i\\) is the propbability of class \\(i\\) in the partition. We can check that this also meets our requirements regarding minimal and maximal impurity.
+Where again, \\(p_i\\) is the probability of class \\(i\\) in the partition. We can check that this also meets our requirements regarding minimal and maximal impurity.
 
 
 ```python
@@ -167,11 +166,11 @@ $$ ID = G_P - \frac{|\Omega_{C_L}|}{|\Omega_P|}G_{C_L} - \frac{|\Omega_{C_R}|}{|
 for Gini. Where \\(M_P\\) is the set of points in the parent vertex and \\(M_{C_R}\\) and \\(M_{C_L}\\) are the set of points in the left and right child respectively.
 
 
-We thus want to choose splits that maximize the impurity deacrease. Note, for entropy, this is called the *information gain* due to it's relations to information theory. You can think of a split as giving more information abour the classes and that we want the split that maximizes this information.
+We thus want to choose splits that maximize the impurity decrease. Note, for entropy, this is called the *information gain* due to it's relations to information theory. You can think of a split as giving more information about the classes and that we want the split that maximizes this information.
 
-Okay, so now we know how to determine if a question is better than another, how do we determine the set of questions? The questions will depend on the type of variable we are considering. Note that We can only ask questions of a single variable at a time. In general there are two types of variables; unordered and ordered. Unordered variables are categorical variables while ordered are continuous and ordinal. For categorical variables, we can only ask whether the variables is equal to a certain value. Therefore, for a categorical variable, the maximum number of questions we can ask (or splits we can make) is one minus the unique number of values the variable can take. For ordered variables, we can ask if the variable is less than or greater (or \\(\leq\\), \\(\geq\\)) than a given value. For ordinal varibales, the maximal number of splits is again one minus the unique number of possible values. For continuous though, the number of splits is infinite. Therefore we need a way to use the data at hand to determine a finite number of splits.
+Okay, so now we know how to determine if a question is better than another, how do we determine the set of questions? The questions will depend on the type of variable we are considering. Note that We can only ask questions of a single variable at a time. In general there are two types of variables; unordered and ordered. Unordered variables are categorical variables while ordered are continuous and ordinal. For categorical variables, we can only ask whether the variables is equal to a certain value. Therefore, for a categorical variable, the maximum number of questions we can ask (or splits we can make) is one minus the unique number of values the variable can take. For ordered variables, we can ask if the variable is less than or greater (or \\(\leq\\), \\(\geq\\)) than a given value. For ordinal variables, the maximal number of splits is again one minus the unique number of possible values. For continuous though, the number of splits is infinite. Therefore we need a way to use the data at hand to determine a finite number of splits.
 
-One way to handle continuous variables is to obseve the unique number of values the data takes and have one minus that number. The actual split positions then are \\(\frac{a-b}{2}\\), where \\(a\\) and \\(b\\) are consecutive values that the variable can take. This can create a large number of possible splits considering each datapoint in the sample set may have a unique value for that variable. The figure below shows possible splits for the \\(x_1\\) variables. From this, we can clearly see the cyan colored
+One way to handle continuous variables is to observe the unique number of values the data takes and have one minus that number. The actual split positions then are \\(\frac{a-b}{2}\\), where \\(a\\) and \\(b\\) are consecutive values that the variable can take. This can create a large number of possible splits considering each datapoint in the sample set may have a unique value for that variable. The figure below shows possible splits for the \\(x_1\\) variables. From this, we can clearly see the cyan colored
 split will give us the highest information gain.
 
 
