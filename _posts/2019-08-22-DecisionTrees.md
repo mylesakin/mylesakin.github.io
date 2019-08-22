@@ -109,7 +109,9 @@ $$ S = -\sum_i p_i\log{p_i} $$
 
 Where \\(p_i\\) is the probability of the \\(i\\)th class in the partition.
 
-We do not know the actual probability of each class but we can approximate it using \\(p_i=\frac{|\Omega_i|}{|\Omega|}\\), where \\(\Omega\\) is the partition under consideration, \\(\Omega_i\\) is the set of point corresponding to class \\(i\\) and \\(||\\) is the cardinality function. For the binary case, this is simply cross entropy. We can verify that this impurity measure is minimal when the partition is pure and maximal when each class has equal probability by plotting cross-entropy. Not that for two classes \\(p_1=1-p_2\\) and vice versa.
+We do not know the actual probability of each class but we can approximate it using
+$$p_i=\frac{|\Omega_i|}{|\Omega|}$$
+ where \\(\Omega\\) is the partition under consideration, \\(\Omega_i\\) is the set of point corresponding to class \\(i\\) and || is the cardinality function. For the binary case, this is simply cross entropy. We can verify that this impurity measure is minimal when the partition is pure and maximal when each class has equal probability by plotting cross-entropy. Not that for two classes \\(p_1=1-p_2\\) and vice versa.
 
 
 
