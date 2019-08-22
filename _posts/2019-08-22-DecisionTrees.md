@@ -2,7 +2,7 @@
 title: "Fundamentals - Decision Trees"
 date: 2019-08-22
 tags: [Decision Trees, Classification, Regression]
-excerpt: "An discussion of the decision tree model for classification and regression"
+excerpt: "A discussion of the decision tree model for classification and regression"
 mathjax: "true"
 ---
 
