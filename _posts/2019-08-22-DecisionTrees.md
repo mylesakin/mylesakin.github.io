@@ -10,7 +10,7 @@ This post is the start of a series of posts I will make about some fundamental d
 
 ## Introduction
 
-Consider a classification problem with input space (feature space) \\(\Omega\\) and output space \\(\omega\\) along with a sample set \\((X,Y) \subset (\Omega,\omega)\\). Since this is a classification problem, \\(\omega\\) consists of a finite set of values, say two, \\(\omega = \{c_0,c_1\}\\) (that is, binary classification). From this, \\(y\\) defines a partition of the universe into two sets, \\(\Omega = \Omega_{c_1}\cup \Omega_{c_2}\\), where \\(\Omega_{c_1}\\) contains all objects classified as \\(c_1\\) and \\(\Omega_{c_2}\\) all object classified as \\(c_2\\). Given this, a classification model, \\(\phi: \Omega \rightarrow \omega\\) also defines a partition of \\(\Omega\\) as it approximates \\(Y\\) as some \\(\hat{Y}\\). That is, \\(\Omega = \Omega_{c_1}^{\phi} \cup \Omega_{c_2}^{\phi}\\). This can be generalized to multiclass classification with \\(\omega= \{c_1,c_2,c_3,...,c_n\}\\) by considering partitions for each class \\(\Omega = \Omega_{c_1} \cup \Omega_{c_2} \cup...\cup \Omega_{c_n}\\). Extension of this partition idea to regression, which has a continuous output space, is slightly trickier as one must descretize the output space \\(y\\). I will discuss on this in the section on *regression trees*.
+Consider a classification problem with input space (feature space) \\(\Omega\\) and output space \\(\omega\\) along with a sample set \\((X,Y) \subset (\Omega,\omega)\\). Since this is a classification problem, \\(\omega\\) consists of a finite set of values, say two, \\(\omega = \{c_0,c_1\}\\) (that is, binary classification). From this, \\(y\\) defines a partition of the universe into two sets, \\(\Omega = \Omega_{c_1}\cup \Omega_{c_2}\\), where \\(\Omega_{c_1}\\) contains all objects classified as \\(c_1\\) and \\(\Omega_{c_2}\\) all object classified as \\(c_2\\). Given this, a classification model, \\(\phi: \Omega \rightarrow \omega\\) also defines a partition of \\(\Omega\\) as it approximates \\(Y\\) as some \\(\hat{Y}\\). That is, \\(\Omega = \Omega_{c_1}^{\phi} \cup \Omega_{c_2}^{\phi}\\). This can be generalized to multiclass classification with \\(\omega= \{c_1,c_2,c_3,...,c_n\}\\) by considering partitions for each class \\(\Omega = \Omega_{c_1} \cup \Omega_{c_2} \cup...\cup \Omega_{c_n}\\). Extension of this partition idea to regression, which has a continuous output space, is slightly trickier as one must find a way to take a single value from a partition and map to continuous output \\(y\\). I will discuss on this in the section on *regression trees*.
 
 We now want to develop a method to partition our input space \\(\Omega\\) using the sample set \\((X,Y)\\) and a function \\(\phi\\) trained on \\((X,Y)\\), such that the partitioning of \\(\Omega\\) by \\(\phi\\) is as close to the true partition as possible. Decision tree, aka classification trees or regression, allow us to create such a partitioning.
 
@@ -71,7 +71,7 @@ plt.show()
 ![png]({{ site.url }}{{ site.baseurl }}/images/Decision_trees/output_6_0.png)
 
 
-Let's call these partitions \\(\Omega_{x_1\leq 0.5}\\) and \\(\Omega_{x_1>0.5}\\). Now that we've partitioned the whole space, we now wnat to ask a question that partitions one of the partitions. Since we are looking for partitions that will separate our class \\(\{red,blue\}\\), we do not need to partition \\(\Omega_{x_1\leq 0.5}\\) as it contains only a single class. What is a question that we can ask to partition \\(\Omega_{x_2>0.5}\\)? How about *is \\(x_2\\) greater than or equal to 0.5?* This results in the following
+Let's call these partitions \\(\Omega_{x_1\leq 0.5}\\) and \\(\Omega_{x_1>0.5}\\). Now that we've partitioned the whole space, we now want to ask a question that partitions one of the partitions. Since we are looking for partitions that will separate our class \\(\{red,blue\}\\), we do not need to partition \\(\Omega_{x_1\leq 0.5}\\) as it contains only a single class. What is a question that we can ask to partition \\(\Omega_{x_2>0.5}\\)? How about *is \\(x_2\\) greater than or equal to 0.5?* This results in the following
 
 
 ```python
@@ -91,7 +91,7 @@ plt.show()
 
 We now have three partitions that completely separate our classes; \\(\Omega_{x_1\leq 0.5}\\), \\(\Omega_{(x_1 > 0.5, x_2 <0.5)}\\) and \\(\Omega_{(x_1>0.5, x_2\geq 0.5)}\\). The class partitions can then be written as \\(\Omega_{red} = \Omega_{x_1\leq 0.5} \cup \Omega_{(x_1 > 0.5, x_2 <0.5)}\\) and \\(\Omega_{blue} = \Omega_{(x_1>0.5, x_2\geq 0.5)}\\). Note: this notation will get very clunky as the number of questions increases, but these questions form our function \\(\phi\\) as it were. So now, how might we represent this as a decision tree? Remember, each vertex represents a space/partition and each edge an answer to a question. The following is a tree representation of our example.
 
-So we can see now that a decision tree is a a representation of a set of questions and partitions. Now you may ask that while this is nice, the questions here were easy due to our knowledge of the data, what happens when we don't know how the data (that is the sample) was created or the actual distribution the data comes from? We will get to that in a moment but first another pressing matter. Now that we have a model, if we were given a new sample or datapoint, how can we determine that class?
+So we can see now that a decision tree is a representation of a set of questions and partitions. Now you may ask that while this is nice, the questions here were easy due to our knowledge of the data, what happens when we don't know how the data (that is the sample) was created or the actual distribution the data comes from? We will get to that in a moment but first another pressing matter. Now that we have a model, if we were given a new sample or datapoint, how can we determine that class?
 
 ![png]({{ site.url }}{{ site.baseurl }}/images/Decision_trees/decision_tree.png)
 
@@ -99,7 +99,7 @@ For example, suppose we were given \\((0.8,0.3)\\) and asked to determin whether
 
 ## Splitting Vertices
 
-Before getting into the process of developing questions and splitting vertices/partitions, let's first define what it means for a question/split to be "good". This requires us to define a *loss* function to determine how well the new partitions match the actual partitioning. Again, let us stay with the classification problem at the moment. If we label points in the partition represented by a vertex using majority vote, what is the loss (or sometimes called, the impurity)? We want a loss function that is minimized (that is, equal to zero) when all points belonging to the partition are of the same class and maximized when there is an equal amount of all classes in the partition (that is equaly probability for each class for a randomly selected poin). The former case being pure and the latter being maximally impure. What are some possible loss functions?
+Before getting into the process of developing questions and splitting vertices/partitions, let's first define what it means for a question/split to be "good". This requires us to define a *loss* function to determine how well the new partitions match the actual partitioning. Again, let us stay with the classification problem at the moment. If we label points in the partition represented by a vertex using majority vote, what is the loss (or sometimes called, the impurity)? We want a loss function that is minimized (that is, equal to zero) when all points belonging to the partition are of the same class and maximized when there is an equal amount of all classes in the partition (that is equally probability for each class for a randomly selected point). The former case being pure and the latter being maximally impure. What are some possible loss functions?
 
 One possible loss function is the classic entropy. This is the most popular loss function for classification problems using models such as logistic regression or neural networks. Entropy (called cross entropy for binary classification) is defined as follows:
 
@@ -201,17 +201,17 @@ A very nice result of selecting variables and splits based on a loss criteria is
 
 ### Regression
 
-The pervious discussion focused on classification, what about regression? For regression, we have continuous values for \\(\omega\\) rather than a discrete set of classes. We therefore can't use the loss functions nor the labeling method defined in the previous section for regression so we'll need regression specific measures. The loss function needs to give the difference between the model approximation value and the true value. We can use the popular loss funciton for regression, *squared error*
+The pervious discussion focused on classification, what about regression? For regression, we have continuous values for \\(\omega\\) rather than a discrete set of classes. We therefore can't use the loss functions nor the labeling method defined in the previous section for regression so we'll need regression specific measures. The loss function needs to give the difference between the model approximation value and the true value. We can use the popular loss function for regression, *squared error*
 
 *Def 8*: Square error of an estimated regression value \\(\hat{y}\\) given the true value \\(y\\) is
 $$Err = (y-\hat{y})^2$$
 
-This loss fuction enhances the impact of large errors while reducing the impact of small errors. We also need to determine the value the decision tree provides at a leaf vertex. Since regression problems provide continuous value in the output space \\(\omega\\), we cannot have a majority vote (all \\(y\\) values in the leaf may be unique). We will instead use the average of all \\(y\\) values in the leaf as our model output. It can be shown the the average minimized the square error loss, but I will leave that proof for the reader. To put formally
+This loss function enhances the impact of large errors while reducing the impact of small errors. We also need to determine the value the decision tree provides at a leaf vertex. Since regression problems provide continuous value in the output space \\(\omega\\), we cannot have a majority vote (all \\(y\\) values in the leaf may be unique). We will instead use the average of all \\(y\\) values in the leaf as our model output. It can be shown the average minimized the square error loss, but I will leave that proof for the reader. To put formally
 
-*Def 9*: Regression output for Decision Tree. Let \\(X',Y')\subset (X,Y)\\) be a partition on a leaf vetex and \\(Y' = \{y_1,y_2,...,y_{N}\}\\) where \\(N = |(X',Y')|\\). Then the output of the decision tree model at that leaf is given by
+*Def 9*: Regression output for Decision Tree. Let \\(X',Y')\subset (X,Y)\\) be a partition on a leaf vertex and \\(Y' = \{y_1,y_2,...,y_{N}\}\\) where \\(N = |(X',Y')|\\). Then the output of the decision tree model at that leaf is given by
 $$ \hat{y} = \frac{1}{N}\sum_{i=1}^N y_i$$
 
-Now that we have a loss and model output functions, we can perform the same process as in classification trees. We look for splits what minimize the square error given the averge of the resulting partition spaces as outputs.
+Now that we have a loss and model output functions, we can perform the same process as in classification trees. We look for splits what minimize the square error given the average of the resulting partition spaces as outputs.
 
 ## Stopping
 
@@ -260,7 +260,7 @@ One of the nicest features of decision trees is their ease of interpretability. 
 ## Conclusion
 That concludes the discussion of Decision Trees. These models are very popular for many reasons
 
-* Non-paraametric; can model complex relationships between input and output without assumptions
+* Non-parametric; can model complex relationships between input and output without assumptions
 * Can handle categorical and continuous data easily
 * Intrinsic feature selection and are robust irrelevant features
 * Robust to outliers or errors in data
