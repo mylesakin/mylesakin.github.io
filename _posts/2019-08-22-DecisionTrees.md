@@ -6,7 +6,7 @@ excerpt: "A discussion of the decision tree model for classification and regress
 mathjax: "true"
 ---
 
-This post is the start of a series of posts I will make about some fundamental data science methods. I am making these to keep my knowledge of machine learning fundamentals strong and hopefully provide a nice/clear explanation of these methods. To start, I am going to talk about a type of model that is very powerful, but also has some significant weaknesses, the *decision tree*. I will follow this post with another post on ensemble methods and the ensembling of decision trees into random forests, which is a very powerful and popular machine learning model.
+This post is the start of a series of posts I will make about some fundamental data science methods. I am making these to keep my knowledge of machine learning fundamentals strong and hopefully provide a nice/clear explanation of these methods. To start, I am going to talk about a type of model that is very powerful and very popular, the *decision tree*. I will follow this post with another post on ensemble methods and the ensembling of decision trees into random forests, which is a very powerful and popular machine learning model.
 
 ## Introduction
 
