@@ -108,7 +108,7 @@ analytics:
 author:
   name             : "Myles Akin, PhD"
   avatar           : "/images/avatar.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an applied mathematician working in ML and AI"
+  bio              : "I am an applied mathematician working as a ML/AI consultant for Avanade. I recieved a PhD in Mathematics from Drexel University where I studied computational Neuroscience."
   location         : "Atlanta, GA"
   email            : "myles.akin@gmail.com"
   linkedin         : "mylesakin"
