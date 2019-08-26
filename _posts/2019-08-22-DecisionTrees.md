@@ -6,15 +6,15 @@ excerpt: "A discussion of the decision tree model for classification and regress
 mathjax: "true"
 ---
 
-This post is the start of a series of posts I will make about some fundamental data science methods. I am making these to keep my knowledge of machine learning fundamentals strong and hopefully provide a nice/clear explanation of these methods. To start, I am going to talk about a type of model that is very powerful and very popular, the *decision tree*. I will follow this post with another post on ensemble methods and the ensembling of decision trees into random forests, which is a very powerful and popular machine learning model.
+This post is the start of a series of posts I will make about some fundamental data science methods. I am making these to keep my knowledge of machine learning fundamentals strong and hopefully provide a nice/clear explanation of these methods. To start, I am going to talk about a type of model that is very powerful and very popular, the *decision tree*. I will follow this post with another post on ensemble methods and the ensembling of decision trees into random forests, a popular use of decision trees.
 
 ## Introduction
 
-Consider a classification problem with input space (feature space) \\(\Omega\\) and output space \\(\omega\\) along with a sample set \\((X,Y) \subset (\Omega,\omega)\\). Since this is a classification problem, \\(\omega\\) consists of a finite set of values, say two \\(\omega =\\){ \\(c_0,c_1 \\)} (that is, binary classification). From this, \\(y\\) defines a partition of the universe into two sets, \\(\Omega = \Omega_{c_1}\cup \Omega_{c_2}\\), where \\(\Omega_{c_1}\\) contains all objects classified as \\(c_1\\) and \\(\Omega_{c_2}\\) all object classified as \\(c_2\\). Given this, a classification model, \\(\phi: \Omega \rightarrow \omega\\) also defines a partition of \\(\Omega\\) as it approximates \\(Y\\) as some \\(\hat{Y}\\). That is, \\(\Omega = \Omega_{c_1}^{\phi} \cup \Omega_{c_2}^{\phi}\\). This can be generalized to multiclass classification with \\(\omega=\\){\\(c_1,c_2,c_3,...,c_n\\)} by considering partitions for each class \\(\Omega = \Omega_{c_1} \cup \Omega_{c_2} \cup...\cup \Omega_{c_n}\\). Extension of this partition idea to regression, which has a continuous output space, is slightly trickier as one must find a way to take a single value from a partition and map to continuous output \\(y\\). I will discuss on this in the section on *regression trees*.
+Consider a classification problem with input space (feature space) \\(\Omega\\) and output space \\(\omega\\) along with a sample set \\((X,Y) \subset (\Omega,\omega)\\). Since this is a classification problem, \\(\omega\\) consists of a finite set of values, for example two \\(\omega =\\){ \\(c_0,c_1 \\)} (that is, binary classification). For the binary case, \\(\omega\\) defines a partition of the input space into two sets, \\(\Omega = \Omega_{c_1}\cup \Omega_{c_2}\\), where \\(\Omega_{c_1}\\) contains all objects classified as \\(c_1\\) and \\(\Omega_{c_2}\\) all object classified as \\(c_2\\). Given this, a classification model, \\(\phi: \Omega \rightarrow \omega\\) also defines a partition of \\(\Omega\\) as it approximates \\(\Omega\\) as some \\(\\Omega^\phi\= \Omega_{c_1}^{\phi} \cup \Omega_{c_2}^{\phi}\\). This approximation is based on an approximation of the output space \\(Y\\) as \\(\hat{Y}\\) using the input space sample\\(X\\). That is \\(\phi(\vec{x})=\hat{y}\\) for \\(\vec{x} \in X\\). This can be generalized to multiclass classification with \\(\omega=\\){\\(c_1,c_2,c_3,...,c_n\\)} by considering partitions for each class \\(\Omega = \Omega_{c_1} \cup \Omega_{c_2} \cup...\cup \Omega_{c_n}\\). Extension of this partition idea to regression, which has a continuous output space, is slightly trickier as one must find a way to take a single value from a partition and map to continuous output \\(y\\). We will discuss on this in the section on *regression trees*.
 
 We now want to develop a method to partition our input space \\(\Omega\\) using the sample set \\((X,Y)\\) and a function \\(\phi\\) trained on \\((X,Y)\\), such that the partitioning of \\(\Omega\\) by \\(\phi\\) is as close to the true partition as possible. Decision tree, aka classification trees or regression, allow us to create such a partitioning.
 
-### Defintions
+### Decision Trees
 
 To start, we need a few definitions from graph theory.
 
@@ -25,10 +25,9 @@ To start, we need a few definitions from graph theory.
 *Def 3*: If the exists an edge from a vertex \\(v_1\\) to a vertex \\(v_2\\), then \\(v_2\\) is said to be the **child** of \\(v_1\\) and \\(v_1\\) is the **parent** of \\(v_2\\). A vertex without any child vertices is a **leaf** vertex.
 
 *Def 3*: A **binary tree** is a rooted tree where all non-leaf vertices have exactly two children.
+\omega\\), that can be represented by a rooted tree. How does this represent a partition? What we will do is let each vertex in the tree represent some partition of \\(\Omega\\) and each edge represent some *question* that defines a partition rule of a *parent* partition. So we can see that *child* vertices are partitions of a *parent* verte partition. The root vertex, which has no parent, is the entire input space \\(\Omega\\). Let's take a look at an example.
 
-A *decision tree* then is a model, \\(\phi: \Omega \rightarrow y\\), that can be represented by a rooted tree. How does this represent a partition? What we will do is let each vertex in the tree represent some partition of \\(\Omega\\) and each edge represent some *question* that defines a partition rule of a *parent* partition. So we can see that *child* vertices are partitions of a *parent* verte partition. The root vertex, which has no parent, is the entire input space \\(\Omega\\). Let's take a look at an example.
-
-Consider the following set with \\(X \subset \Omega = [0,1]\times[0,1]\\) and \\(Y \subset y = \{red,blue\}\\)
+Consider the following set with \\(X \subset \Omega = [0,1]\times[0,1]\\) and \\(Y \subset \omega =\\){\\(\{red,blue\}\\)}
 
 
 ```python
@@ -91,9 +90,9 @@ plt.show()
 
 We now have three partitions that completely separate our classes; \\(\Omega_{x_1\leq 0.5}\\), \\(\Omega_{(x_1 > 0.5, x_2 <0.5)}\\) and \\(\Omega_{(x_1>0.5, x_2\geq 0.5)}\\). The class partitions can then be written as \\(\Omega_{red} = \Omega_{x_1\leq 0.5} \cup \Omega_{(x_1 > 0.5, x_2 <0.5)}\\) and \\(\Omega_{blue} = \Omega_{(x_1>0.5, x_2\geq 0.5)}\\). Note: this notation will get very clunky as the number of questions increases, but these questions form our function \\(\phi\\) as it were. So now, how might we represent this as a decision tree? Remember, each vertex represents a space/partition and each edge an answer to a question. The following is a tree representation of our example.
 
-So we can see now that a decision tree is a representation of a set of questions and partitions. Now you may ask that while this is nice, the questions here were easy due to our knowledge of the data, what happens when we don't know how the data (that is the sample) was created or the actual distribution the data comes from? We will get to that in a moment but first another pressing matter. Now that we have a model, if we were given a new sample or datapoint, how can we determine that class?
-
 ![png]({{ site.url }}{{ site.baseurl }}/images/Decision_trees/decision_tree.png)
+
+So we can see now that a decision tree is a representation of a set of questions and partitions. Now you may ask that while this is nice, the questions here were easy due to our knowledge of the data, what happens when we don't know how the data (that is the sample) was created or the actual distribution the data comes from? We will get to that in a moment but first another pressing matter. Now that we have a model, if we were given a new sample or datapoint, how can we determine that class?
 
 For example, suppose we were given \\((0.8,0.3)\\) and asked to determin whether this is red or blue. Well, we just ask the questions and follow the path down the tree! So for instance from the first questions, \\(x_1=0.8\\) is greater than 0.5 so this ends up in the \\(\Omega_{x_1>0.5}\\). Now we see if we can ask another question, which we can and since \\(x_2=0.3\\) is less than 0.5, the sample now ends up in the \\(\Omega_{(x_1 > 0.5, x_2 <0.5)}\\) partition. At this point we can no longer ask anymore questions (as this is a leaf vertex), but how do we label the point. We will discuss this further later, but for now we just let majority vote in the partition determine the label. In this case, all points in the partition are *red* so we label our new point *red* as well. And there you have, a bare bones discussion of decision trees and how they work. Now we will go into more detail. Note, we will primarily discuss *binary decision trees* which allow for yes/no questions only. It is possible to have non-binary splits, but we leave that for another post.
 
@@ -101,7 +100,7 @@ For example, suppose we were given \\((0.8,0.3)\\) and asked to determin whether
 
 Before getting into the process of developing questions and splitting vertices/partitions, let's first define what it means for a question/split to be "good". This requires us to define a *loss* function to determine how well the new partitions match the actual partitioning. Again, let us stay with the classification problem at the moment. If we label points in the partition represented by a vertex using majority vote, what is the loss (or sometimes called, the impurity)? We want a loss function that is minimized (that is, equal to zero) when all points belonging to the partition are of the same class and maximized when there is an equal amount of all classes in the partition (that is equally probability for each class for a randomly selected point). The former case being pure and the latter being maximally impure. What are some possible loss functions?
 
-One possible loss function is the classic entropy. This is the most popular loss function for classification problems using models such as logistic regression or neural networks. Entropy (called cross entropy for binary classification) is defined as follows:
+One possible loss function is classic entropy. This is the most popular loss function for classification problems using models such as logistic regression or neural networks. Entropy (called cross entropy for binary classification) is defined as follows:
 
 *def 5*: Entropy \\(S\\) is given by
 
@@ -111,7 +110,7 @@ Where \\(p_i\\) is the probability of the \\(i\\)th class in the partition.
 
 We do not know the actual probability of each class but we can approximate it using
 $$p_i=\frac{|\Omega_i|}{|\Omega|}$$
- where \\(\Omega\\) is the partition under consideration, \\(\Omega_i\\) is the set of point corresponding to class \\(i\\) and || is the cardinality function. For the binary case, this is simply cross entropy. We can verify that this impurity measure is minimal when the partition is pure and maximal when each class has equal probability by plotting cross-entropy. Not that for two classes \\(p_1=1-p_2\\) and vice versa.
+ where \\(\Omega\\) is the partition under consideration, \\(\Omega_i\\) is the set of point corresponding to class \\(i\\) and || is the cardinality function. We can verify that this impurity measure is minimal when the partition is pure and maximal when each class has equal probability by plotting cross-entropy. Not that for two classes \\(p_1=1-p_2\\) and vice versa.
 
 
 
@@ -153,9 +152,9 @@ plt.show()
 ![png]({{ site.url }}{{ site.baseurl }}/images/Decision_trees/output_15_0.png)
 
 
-Indeed this does meet our requirements, though the maximal value is lower than that of entropy (not that it matters). Either of these measures is fine as they meet our requirements, though certain algorithms prefer one to the other. The CART algorithm uses Gini while C4.5 and ID3 use entropy. We will note in a moment that there are some differences in what type of split Gini and entropy prefer, but we first need to discuss choosing between splits.
+Indeed this does meet our requirements, though the maximal value is lower than that of entropy. Either of these measures is fine as they meet our requirements, though certain algorithms prefer one to the other. The CART algorithm uses Gini while C4.5 and ID3 use entropy. We will note in a moment that there are some differences in what type of split Gini and entropy prefer, but we first need to discuss choosing between splits.
 
-So now we know how to measure how "good" a split or question is, can we use this to compare two split to determine which is better. Of course! We can define the impurity decrease as the difference between the current impurity (parent vertex) and the resulting impurity of the child vertices>
+So now we know how to measure how "good" a split or question is, can we use this to compare two split to determine which is better? We can define the impurity decrease as the difference between the current impurity (parent vertex) and the resulting impurity of the child vertices.
 
 *Def 7*: Impurity decrease is given by
 
@@ -165,12 +164,12 @@ for entropy and
 
 $$ ID = G_P - \frac{|\Omega_{C_L}|}{|\Omega_P|}G_{C_L} - \frac{|\Omega_{C_R}|}{|\Omega_P|}G_{C_R} $$
 
-for Gini. Where \\(M_P\\) is the set of points in the parent vertex and \\(M_{C_R}\\) and \\(M_{C_L}\\) are the set of points in the left and right child respectively.
+for Gini. Where \\(\Omega_P\\) is the set of points in the parent vertex and \\(\Omega_{C_R}\\) and \\(\Omega_{C_L}\\) are the set of points in the left and right child respectively.
 
 
 We thus want to choose splits that maximize the impurity decrease. Note, for entropy, this is called the *information gain* due to it's relations to information theory. You can think of a split as giving more information about the classes and that we want the split that maximizes this information.
 
-Okay, so now we know how to determine if a question is better than another, how do we determine the set of questions? The questions will depend on the type of variable we are considering. Note that We can only ask questions of a single variable at a time. In general there are two types of variables; unordered and ordered. Unordered variables are categorical variables while ordered are continuous and ordinal. For categorical variables, we can only ask whether the variables is equal to a certain value. Therefore, for a categorical variable, the maximum number of questions we can ask (or splits we can make) is one minus the unique number of values the variable can take. For ordered variables, we can ask if the variable is less than or greater (or \\(\leq\\), \\(\geq\\)) than a given value. For ordinal variables, the maximal number of splits is again one minus the unique number of possible values. For continuous though, the number of splits is infinite. Therefore we need a way to use the data at hand to determine a finite number of splits.
+Okay, so now we know how to determine if a question is better than another, how do we determine the set of questions? The questions will depend on the type of variable we are considering. Note that we will only ask questions of a single variable at a time (it is possible to partition on multiple variables, but rarely done). In general there are two types of variables; unordered and ordered. Unordered variables are categorical variables while ordered are continuous and ordinal. For categorical variables, we can only ask whether the variables is equal to a certain value. Therefore, for a categorical variable, the maximum number of questions we can ask (or splits we can make) is one minus the unique number of values the variable can take. For ordered variables, we can ask if the variable is less than or greater (or \\(\leq\\), \\(\geq\\)) than a given value (though these are essentially the same). For ordinal variables, the maximal number of splits is again one minus the unique number of possible values. For continuous though, the number of splits is infinite. Therefore we need a way to use the data at hand to determine a finite number of splits.
 
 One way to handle continuous variables is to observe the unique number of values the data takes and have one minus that number. The actual split positions then are \\(\frac{a-b}{2}\\), where \\(a\\) and \\(b\\) are consecutive values that the variable can take. This can create a large number of possible splits considering each datapoint in the sample set may have a unique value for that variable. The figure below shows possible splits for the \\(x_1\\) variables. From this, we can clearly see the cyan colored
 split will give us the highest information gain.
@@ -206,9 +205,9 @@ The pervious discussion focused on classification, what about regression? For re
 *Def 8*: Square error of an estimated regression value \\(\hat{y}\\) given the true value \\(y\\) is
 $$Err = (y-\hat{y})^2$$
 
-This loss function enhances the impact of large errors while reducing the impact of small errors. We also need to determine the value the decision tree provides at a leaf vertex. Since regression problems provide continuous value in the output space \\(\omega\\), we cannot have a majority vote (all \\(y\\) values in the leaf may be unique). We will instead use the average of all \\(y\\) values in the leaf as our model output. It can be shown the average minimized the square error loss, but I will leave that proof for the reader. To put formally
+Where \\(\hat{y}\\) is the model result. This loss function enhances the impact of large errors while reducing the impact of small errors. We also need to determine the value the decision tree provides at a leaf vertex. Since regression problems provide continuous value in the output space \\(\omega\\), we cannot have a majority vote (all \\(y\\) values in the leaf may be unique). We will instead use the average of all \\(y\\) values in the leaf as our model output. It can be shown the average minimized the square error loss, but I will leave that proof for the reader. To put formally
 
-*Def 9*: Regression output for Decision Tree. Let \\(X',Y')\subset (X,Y)\\) be a partition on a leaf vertex and \\(Y' = \{y_1,y_2,...,y_{N}\}\\) where \\(N = |(X',Y')|\\). Then the output of the decision tree model at that leaf is given by
+*Def 9*: Regression output for Decision Tree. Let \\(X',Y')\subset (X,Y)\\) be a partition on a leaf vertex and \\(Y' =\\) {\\( \{y_1,y_2,...,y_{N}\\)} and \\(N = |(X',Y')|\\). Then the output of the decision tree model at that leaf is given by
 $$ \hat{y} = \frac{1}{N}\sum_{i=1}^N y_i$$
 
 Now that we have a loss and model output functions, we can perform the same process as in classification trees. We look for splits what minimize the square error given the average of the resulting partition spaces as outputs.
@@ -223,7 +222,7 @@ Now that we have methods to choose questions to ask and choose which split is th
 * Set a vertex as a leaf is the total decrease in impurity (or square loss) is less than a fixed threshold \\(\beta\\)
 * Set a vertex as a leaf is there is no split such that each resulting vertex (partition) both have at least \\(N_{leaf}\\) samples
 
-The depth of a vertex is the number of parent vertices (or number of splits) above the one in consideration. Each of these methods prevents the decision tree model from overfitting and capturing the noise. Let's take a look at an example of how the max depth changes the output of a decision tree regression model. We use sklearn decision tree regressor for this.
+The depth of a vertex is the number of parent vertices (or number of splits) above the one in consideration. Each of these methods help to prevent decision tree models from overfitting and capturing the noise. Let's take a look at an example of how the max depth changes the output of a decision tree regression model. We use sklearn decision tree regressor for this.
 
 
 ```python
