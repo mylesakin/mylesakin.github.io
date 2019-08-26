@@ -24,8 +24,9 @@ To start, we need a few definitions from graph theory.
 
 *Def 3*: If the exists an edge from a vertex \\(v_1\\) to a vertex \\(v_2\\), then \\(v_2\\) is said to be the **child** of \\(v_1\\) and \\(v_1\\) is the **parent** of \\(v_2\\). A vertex without any child vertices is a **leaf** vertex.
 
-*Def 3*: A **binary tree** is a rooted tree where all non-leaf vertices have exactly two children.
-\\(\omega\\), that can be represented by a rooted tree. How does this represent a partition? What we will do is let each vertex in the tree represent some partition of \\(\Omega\\) and each edge represent some *question* that defines a partition rule of a *parent* partition. So we can see that *child* vertices are partitions of a *parent* vertex partition. The root vertex, which has no parent, is the entire input space \\(\Omega\\). Let's take a look at an example.
+*Def 4*: A **binary tree** is a rooted tree where all non-leaf vertices have exactly two children.
+
+A *decision tree* then is a model \\(\phi:\Omega \rightarrow \omega\\), that can be represented by a rooted tree. How does this represent a partition? What we will do is let each vertex in the tree represent some partition of \\(\Omega\\) and each edge represent some *question* that defines a partition rule of a *parent* partition. So we can see that *child* vertices are partitions of a *parent* vertex partition. The root vertex, which has no parent, is the entire input space \\(\Omega\\). Let's take a look at an example.
 
 Consider the following set with \\(X \subset \Omega = [0,1]\times[0,1]\\) and \\(Y \subset \omega =\\){\\(\{red,blue\}\\)}
 
