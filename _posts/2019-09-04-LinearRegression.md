@@ -93,7 +93,7 @@ print('w:',w)
 ```
 
 
-![png](({{ site.url }}{{ site.baseurl }}/images/simple_linear_regression/output_6_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/simple_linear_regression/output_6_0.png)
 
 
     w: 0.704693458878835
