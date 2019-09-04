@@ -114,8 +114,3 @@ There are two other assumptions made with this solution we haven't mentioned yet
 ## Conclusion
 
 This was a basic discussion of the simplest form of linear regression and the *OLS* solution. In upcoming posts, we will continue the dscussion of linear regression with the *basis function expansion*, *regularization* techniques and *stochastic gradient descent* estimation of the \\(\mathbf{w}\\) parameters.
-
-
-```python
-
-```
