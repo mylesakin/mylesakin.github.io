@@ -23,7 +23,7 @@ It is often assumed that the residual error follows a Gaussian (or normal) distr
 
 $$\epsilon \sim \mathcal{N}(\epsilon|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp{-\frac{1}{2\sigma^2}(\epsilon-\mu)^2}$$
 
-We can connect this residual to the linear regression model explicitley, we can express the model as
+We can connect this residual to the linear regression model explicitly, we can express the model as
 
 $$p(y|x,\theta) = \mathcal{N}(y|\mu(\vec{x}),\sigma^2)$$
 
