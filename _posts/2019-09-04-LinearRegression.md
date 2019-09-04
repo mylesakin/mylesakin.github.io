@@ -45,7 +45,7 @@ $$NLL(\theta) = -\sum_i \log{p(y_i|\mathbf{x}_i,\theta)}$$
 
 This is done as many optimization software are designed to find the minima of function rather than the maxima. In the end, the \\(\theta\\) that minimizes the negative log-likelihood is of course, the same \\(\theta\\) that maximizes the log-likelihood.
 
-We can substitute our linear regression model into the NLL function, and asumming \\(N\\) samples, we obtain
+We can substitute our linear regression model into the NLL function, and assuming \\(N\\) samples, we obtain
 
 $$
 \begin{split}
