@@ -99,7 +99,7 @@ print('w:',w)
     w: 0.704693458878835
 
 
-From this we can see that the *OLS* solution is very close to our set weight; off by 0.046. The plot of the fit also looks too be a good fit to the data. Thus, to summarize, the *OLS* solution provides a simple estimation of the \\(\mathbf{w}\\) parameters under the following assumptions we made explicitly:
+From this we can see that the *OLS* solution is very close to our set weight; off by roughly 0.047. The plot of the fit also looks too be a good fit to the data. Thus, to summarize, the *OLS* solution provides a simple estimation of the \\(\mathbf{w}\\) parameters under the following assumptions we made explicitly:
 
 * Linear relationship between \\(X\\) and \\(Y\\)
 * Residuals follow a normal distribution with constant \\(\sigma\\)
