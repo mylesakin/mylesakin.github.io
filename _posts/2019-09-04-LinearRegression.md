@@ -110,7 +110,7 @@ There are two other assumptions made with this solution we haven't explicitly me
 * No correlation between any \\(X\\) and the error \\(\epsilon\\)
 * No autocorrelation in the error \\(\epsilon\\)
 
-These two are a result of assuming the variance of the model ((\\\simga^2\\)) is fixed. If any of these assumptions are not met, then the OLS solution is not optimal or not possible. Therefore, it is important to check these assumptions prior to using the OLS solution as your estimate.
+These two are a result of assuming the variance of the model ((\\ \sigma^2 \\)) is fixed. If any of these assumptions are not met, then the OLS solution is not optimal or not possible. Therefore, it is important to check these assumptions prior to using the OLS solution as your estimate.
 
 
 ## Conclusion
