@@ -105,12 +105,12 @@ From this we can see that the *OLS* solution is very close to our set weight; of
 * Residuals follow a normal distribution with constant \\(\sigma\\)
 * No multicollinearity
 
-There are two other assumptions made with this solution we haven't mentioned yet
+There are two other assumptions made with this solution we haven't explicitly mentioned yet
 
 * No correlation between any \\(X\\) and the error \\(\epsilon\\)
 * No autocorrelation in the error \\(\epsilon\\)
 
-If any of these assumptions are not met, then the OLS solution is not optimal or not possible. Therefore, it is important to check these assumptions prior to using the OLS solution as your estimate.
+These two are a result of assuming the variance of the model ((\\\simga^2\\)) is fixed. If any of these assumptions are not met, then the OLS solution is not optimal or not possible. Therefore, it is important to check these assumptions prior to using the OLS solution as your estimate.
 
 
 ## Conclusion
