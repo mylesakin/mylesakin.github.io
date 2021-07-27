@@ -1,9 +1,10 @@
+---
 title: "A New Beginning - Options"
 date: 2019-09-04
 tags: [Options, Derivatives, Options Bounds]
 excerpt: "A new beginning for my blog. I am no longer going to post about DS related subjects, I get enough of that at my job. I will now use this as a place to discuss my new hoppy; Networks in Finance, Economics and Game Theory. While this post doesn't involve networks, many will. This is just a starting point."
 mathjax: "true"
-
+---
 # Intro
 
 So I haven't updated this blog in quite some time (almost two year!). Reasons for this include I switched jobs at that point and in my current I am actually working on real data science projects so I haven't had as much desire to write blog posts on DS methods. I have also had a lot of work to do around our house and yard which has taken a lot of my time. Recently though, I have become interested in finance and economics; in particular, the use of network theory in those fields. So now as a hobby, I will use this blog to study finance, economics and game-theory. While many posts will not involve network theory, my goal is to understand how network theory is used in these areas, such as financial market risk and contagions, social network effects on loan uptake, and many other topics. But first, I will start with some basics. One area of interest to start with are assets type and how to price them. This post will start this topic by looking at options and their price bounds. I think this is an intersting place to start as it provides insight on an important asset type and how they work as well as an introdution to arbitrage. I will discuss many more topics and posts may seem scatter shot in that there won't be much continuity between posts. But again, this is simply a fun hobby of mine.
