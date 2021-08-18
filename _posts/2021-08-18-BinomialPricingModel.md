@@ -1,3 +1,11 @@
+---
+title: "Binomial Asset Pricing Model"
+date: 2021-08-18
+tags: [Options, Call Options, Binomial Asset Pricing]
+excerpt: "This post is a short discussion of the Binomial Asset Pricing Model for call options."
+mathjax: "true"
+---
+
 # Binomial Asset Pricing Model - One Period
 
 In the last post, I provided an introduction to options and bounds for both put and call options. Here I will extend this discussion of options to a particular pricing model called the Binomial Asset Pricing Model. I will focus the one-period model saving the multi-period model for a later post. Additionally, I am going to focus on call options.
@@ -23,7 +31,7 @@ plt.show()
 ![png](output_1_0.png)
 
 
-The probability of each event follow the binomial distribution, that is if \\(P(E_u) = p\\), then \\(P(E_d)=1-p\\). Now that we know the possible values of the underlying asset at \\(t_1\\), we can price the option in a way so that it is *risk neutral*. Risk neutral indicates that we don't really care about the risk of an asset; we're indifferent to the probability of a return or the probability of a loss. This implies that the value of our portfolio, which includes the option, needs to have the same value reguardless of whether \\(E_u\\) or \\(E_d\\) occurs. We can accomplish this by using a strategy known as *delta hedging*. Delta hedging involves creating a portfolio consisting of shares of the underlying stock, the option and cash invested in a market that earns at the *risk free rate* \\(r\\). 
+The probability of each event follow the binomial distribution, that is if \\(P(E_u) = p\\), then \\(P(E_d)=1-p\\). Now that we know the possible values of the underlying asset at \\(t_1\\), we can price the option in a way so that it is *risk neutral*. Risk neutral indicates that we don't really care about the risk of an asset; we're indifferent to the probability of a return or the probability of a loss. This implies that the value of our portfolio, which includes the option, needs to have the same value reguardless of whether \\(E_u\\) or \\(E_d\\) occurs. We can accomplish this by using a strategy known as *delta hedging*. Delta hedging involves creating a portfolio consisting of shares of the underlying stock, the option and cash invested in a market that earns at the *risk free rate* \\(r\\).
 
 Suppose we think that the stock will decrease in value. In this case, we can take a short position in a call option; that is we sell call options with the value being the sale price of the option if the stock decreases. We can hedge against this by also purchasing shares of the stock in such a way as to offset the loss incurred if the stock price increases.
 
@@ -49,7 +57,7 @@ Then
 
 $$ \Delta_0 = \frac{20-0}{170-140} = \frac{20}{30} = \frac{2}{3} $$
 
-So the value of the portfolio is 
+So the value of the portfolio is
 
 $$ X_1^u = e^{rT}(X_0-\frac{2}{3}(150)) + (\frac{2}{3}(170)-20) = e^{rT}(X_0-100)) + 93.33 $$
 
@@ -58,7 +66,7 @@ or
 $$ X_1^d = e^{rT}(X_0-\frac{2}{3}(150)) + (\frac{2}{3}(140)-0) = e^{rT}(X_0-100)) + 93.33 $$
 
 To price the option, we now must find the present value of
-So for every share we sell a call option, we must buy 1.5 shares to hedge our position. Generally, we can't buy 1.5 shares, and options contracts are sold for 100 shares, so really it's 150 shares for an options contract. 
+So for every share we sell a call option, we must buy 1.5 shares to hedge our position. Generally, we can't buy 1.5 shares, and options contracts are sold for 100 shares, so really it's 150 shares for an options contract.
 
 So we have the number of shares we need to buy for each option we purchase to create a risk neutral portfolio. However, we still do not have a price we should pay for the option. We can find this from the idea that the present value of the portfolio should equal the cost of setting up the portfolio; that is
 
@@ -90,7 +98,7 @@ $$ f = e^{-rT}[pf^u + (1-p)f^d] $$
 
 We now have a price for the option at time \\(t_0\\) given that we want to use delta hedging to create a riskless portfolio.
 
-Let's check the price we find based on this equation to the bounds we found in the previous post using the stock above. Let's also assume \\(r=0.01\\) and \\(T=3\\) months. 
+Let's check the price we find based on this equation to the bounds we found in the previous post using the stock above. Let's also assume \\(r=0.01\\) and \\(T=3\\) months.
 
 $$ u = 1.08\text{, and } d = 0.926 $$
 
@@ -98,7 +106,7 @@ So
 
 $$ p =  \frac{e^{-0.01*\frac{3}{12}} - 0.926}{1.08-0.926} = 0.464 $$
 
-We also have that 
+We also have that
 
 $$ f^u = 162-145 = 17 \text{, and } f^d = 0 $$
 
