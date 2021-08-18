@@ -28,7 +28,7 @@ plt.show()
 ```
 
 
-![png](output_1_0.png)
+![png]({{ site.url }}{{ site.baseurl }}/images/binomial_options/output_1_0.png)
 
 
 The probability of each event follow the binomial distribution, that is if \\(P(E_u) = p\\), then \\(P(E_d)=1-p\\). Now that we know the possible values of the underlying asset at \\(t_1\\), we can price the option in a way so that it is *risk neutral*. Risk neutral indicates that we don't really care about the risk of an asset; we're indifferent to the probability of a return or the probability of a loss. This implies that the value of our portfolio, which includes the option, needs to have the same value reguardless of whether \\(E_u\\) or \\(E_d\\) occurs. We can accomplish this by using a strategy known as *delta hedging*. Delta hedging involves creating a portfolio consisting of shares of the underlying stock, the option and cash invested in a market that earns at the *risk free rate* \\(r\\).
