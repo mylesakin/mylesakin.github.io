@@ -90,7 +90,7 @@ $$ f = \frac{f^u(1-de^{-rT}) + f^d(ue^{-rT}-1)}{u-d} $$
 
 Setting
 
-$$ p = \frac{e^{-rT} - d}{u-d} $$
+$$ p = \frac{e^{rT} - d}{u-d} $$
 
 It can be easily shown that
 
@@ -104,7 +104,7 @@ $$ u = 1.08\text{, and } d = 0.926 $$
 
 So
 
-$$ p =  \frac{e^{-0.01*\frac{3}{12}} - 0.926}{1.08-0.926} = 0.464 $$
+$$ p =  \frac{e^{0.01*\frac{3}{12}} - 0.926}{1.08-0.926} = 0.496 $$
 
 We also have that
 
@@ -112,7 +112,7 @@ $$ f^u = 162-145 = 17 \text{, and } f^d = 0 $$
 
 So the the price of the option should be
 
-$$ f = e^{-0.01*\frac{3}{12}}[17* 0.464+ (1-0.464)*0] = 7.868 $$
+$$ f = e^{-0.01*\frac{3}{12}}[17* 0.496+ (1-0.496)*0] = 8.41 $$
 
 We know from the previous post that a call option has bounds
 
