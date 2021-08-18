@@ -90,7 +90,7 @@ $$ f = \frac{f^u(1-de^{-rT}) + f^d(ue^{-rT}-1)}{u-d} $$
 
 Setting
 
-$$ p = \frac{e^{rT} - d}{u-d} $$
+$$ p = \frac{e^{-rT} - d}{u-d} $$
 
 It can be easily shown that
 
